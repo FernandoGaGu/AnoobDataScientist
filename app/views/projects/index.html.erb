@@ -1,0 +1,16 @@
+<% provide(:title, 'Projects') %>
+<!DOCTYPE html>
+<html>
+	<body>
+		<h1>This is a prototype of the <%= yield(:title) %> page</h1>
+		<p>
+    In this page all projects will be listed existing the option to retrieve information of each of the projects.
+		</p>
+		<ul>
+			<% @projects.each do |p| %>
+				<li><%= p.name %> (Created: <%= p.created_at.to_s[0..10] %>, 
+					Last update: <%= p.updated_at.to_s[0..10] %>)					
+			<% end %>
+		</ul>
+	</body>
+</html>
