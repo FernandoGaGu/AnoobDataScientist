@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<%= render 'layouts/project_1' %>
+		<%= render "layouts/project_"+request.original_url.split('/')[-1] %>
 	</body>
 </html>
 

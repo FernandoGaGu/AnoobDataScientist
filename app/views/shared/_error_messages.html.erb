@@ -1,0 +1,12 @@
+<% if @contact.errors.any? %>
+	<div id="error_explanation">
+		<div class="alert alert-error">
+			Impossible to send the contact form. Detected <%= pluralize(@contact.errors.count, "error") %>.
+		</div>
+		<ul>
+			<% @contact.errors.full_messages.each do |msg| %>
+				<li>* <%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

@@ -3,10 +3,10 @@
 <html>
   <body>
     <h1>This is a prototype of the <%= yield(:title) %> page.</h1>
-    <p>Currently empty</p>
-        <div class="row">
+    <div class="row">
 		<div class="span6 offset3">
-			<%= form_for @contact, url: contact_path do |f| %>
+			<%= form_for @contact do |f| %>+
+				<%= render 'shared/error_messages' %>
 				<%= f.label :name %>
 				<%= f.text_field :name %>
 				<%= f.label :email %>
