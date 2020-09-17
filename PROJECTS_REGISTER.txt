@@ -1,0 +1,4 @@
+_project_1 : "Neuromining"
+_project_2 : "PyWinEA"
+_project_3 : "Chest-x-ray"
+
