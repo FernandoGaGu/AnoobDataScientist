@@ -1,13 +1,11 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner"> 
-    <div class="container">     
-      <nav>
-        <ul class="nav pull-right">
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Projects", projects_path %></li>
-          <li><%= link_to "Contact", contacts_path %></li>
-          <li><%= link_to "About me", about_path %></li>
-        </ul>
+    <div class="topnav">     
+      <nav class="active">        
+          <%= link_to "Home", root_path %>
+          <%= link_to "Projects", projects_path %>
+          <%= link_to "Contact", contacts_path %>
+          <%= link_to "Education", education_path %>
       </nav>
     </div>
   </div>

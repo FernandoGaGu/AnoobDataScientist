@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
 	get '/projects', to: 'projects#index'
 	get '/contacts', to: 'contacts#index'	
-	get '/about', to: 'static_pages#about'	
+	get '/education', to: 'static_pages#education'	
 	get '/', to: 'static_pages#home'
   	
 end
