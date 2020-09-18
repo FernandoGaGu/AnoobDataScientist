@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <h1>Please, fill in the contact form</h1>
+    <h1>Contact me <%= image_tag("email_icon.png", size:"80x60", hspace:"15")%></h1>
     <div class="row">
 		<div class="span6 offset3">
 			<%= form_for @contact do |f| %>+
@@ -11,9 +11,9 @@
 				<%= f.text_field :name %>
 				<%= f.label :email %>
 				<%= f.text_field :email %>
-				<%= f.label :message %>
-				<%= f.text_field :message %>				
-				<%= f.submit "Contact", class: "btn btn-large btn-primary" %>
+				<%= f.label :message%>
+				<%= f.text_area :message, rows:10, cols:10%>				
+				<%= f.submit "Send", class: "contact_button"%>
 			<% end %>
 		</div>
 	</div>

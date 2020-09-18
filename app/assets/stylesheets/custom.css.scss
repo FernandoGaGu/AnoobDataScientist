@@ -59,7 +59,7 @@ p {
 
 footer {
 	margin-top: 45px;
-	padding-top: 5px;
+	padding-top: 5px;	
 	border-top: 1px solid $grayMediumLight;
 	color: $grayLight;
 	a {
@@ -178,4 +178,20 @@ strong{
 	font-size:30px;
 }
 
+.project-title{
+	font-weight: bold;
+	color: #AFAFAF;
+	padding: 20px 20px;
+	font-size:60px;
+}
+
+
+.contact_button {
+	font-size:20px;
+	font-weight: bold;
+	color: white;
+	background-color: #0372A2;
+  	box-shadow: 0 3px 8px 0 #CCDFE8, 0 1px 6px 0 #0692CF;
+  	border-radius: 25px;  	
+}
 

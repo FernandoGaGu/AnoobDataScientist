@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
 			# send contact form to email
 			ContactMailer.with(contact: @contact).new_contact_email.deliver_later
 			
-			flash.now[:success] = "Contact form successful!!"
+			flash.now[:success] = "The contact request has been processed correctly. Thank you for your time!"
 			render 'index'
 		else
 			render 'new'

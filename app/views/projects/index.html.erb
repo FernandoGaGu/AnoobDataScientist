@@ -2,15 +2,24 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<h1>This is a prototype of the <%= yield(:title) %> page</h1>
+		<h1><strong>Projects</strong></h1>
 		<p>
     In this page all projects will be listed existing the option to retrieve information of each of the projects.
-		</p>
-		<ul>
-			<% @projects.each do |p| %>
-				<li><%= link_to p.name, project_path(p) %> (Created: <%= p.created_at.to_s[0..10] %>, 
-					Last update: <%= p.updated_at.to_s[0..10] %>)					
-			<% end %>
-		</ul>
+		</p>		
+			<% @projects.each_with_index do |p, idx| %>
+				<% if idx % 2 == 0%>
+					<% poster_align = "right" %>
+					<% title_align = "left" %>														
+				<% else %>
+					<% poster_align = "left" %>
+					<% title_align = "right" %>
+				<% end %> 		
+				
+				<h3 class="project-title", align=<%= title_align %>> <span style="color:black"><%= p.name[0...(p.name.length / 3).to_i] %></span><%= p.name[(p.name.length / 3).to_i..p.name.length] %> </h3>
+
+				<%= link_to image_tag("posters/project_1.jpg", :alt => "project_1", width:"50%", hspace:"30", vspace:"30", align:poster_align), project_path(p) %> 	
+				<p class="text-presentation"> <%= p.description %></p>
+
+			<% end %>		
 	</body>
 </html>
