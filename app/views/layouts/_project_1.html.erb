@@ -1,2 +1,186 @@
-<h1>This is the page associated with the NEUROMINING project</h1>
-<h2>Bla Bla Bla my TFM results </h2>
+<h1>PyWinEA, simple complex algorithms</h1>
+<h2>Introduction to Evolutionary Computing</h2>
+
+<p class="text-presentation">
+The field of Evolutionary Computing is an area of great interest within Computer Science due to its ability to obtain good approximations to complex problems. When I talk about complex problems I am referring to the famous <b>NP-Problems</b>. 
+</p>
+<p class="text-presentation">
+For example, let's imagine that we are dealing with a problem with 100 variables, something quite common nowadays given our great capacity to collect data. Now, within those 100 variables we will have a large number of irrelevant and/or redundant features, something that, for example, can significantly affect the performance of our classification/regression models. In this situation we are interested in finding the best combination of those 100 variables, I mean, finding the best subset of variables. 
+</p>
+
+<p class="text-presentation">
+In this case the number of possible combinations is given by the following formula (I am enclosing a piece of code written in Python to apply this formula and determine the number of possible combinations):
+</p>
+		<%= image_tag("project_1/complexity_formula.jpg", :alt => "complexity", :size => "400x200", align:"center", hspace:"20", vspace:"10", class:"profile-image") %>
+		<%= image_tag("project_1/complexity_python.jpg", :alt => "complexity Python", :size => "600x200", align:"center", hspace:"20", vspace:"10", class:"profile-image") %>  
+
+<br><br>
+<p class="text-presentation">
+This gives a total of <b>1267650600228229682971679916032</b> possible combinations, which is somewhat intractable.
+</p>
+
+<br>
+<p class="text-presentation">
+As we cannot explore every possible combination we must find alternatives to try and reduce the number of variables. This reduction may be of interest to us for several reasons.
+	<ul class="text-presentation">
+		<li>
+			Firstly, because of what was mentioned above, to try to improve the <b>performance</b> of the models. 
+		</li>
+		<br>
+		<li>
+			Additionally, the reduction in the number of variables is leaving us only with those that are really relevant to the problem, this translates into the <b>generation of knowledge</b>. 
+		</li>
+		<br>
+		<li>
+			Finally, some models, for example, in the field of Artificial Intelligence, are computationally very expensive. This implies that the more variables we have, the more time and resources they will consume. Therefore, the reduction in the number of variables allows us to <b>increase the efficiency</b> of the algorithms and models.
+		</li>
+	</ul>
+</p>
+
+
+<p class="text-presentation">
+	In this context, we are interested in reducing the number of variables used as much as possible without affecting the results.
+</p>
+
+		<%= image_tag("project_1/basic_ga.jpg", :alt => "complexity Python", :size => "600x300", align:"right", hspace:"20", vspace:"10", class:"profile-image") %>
+
+<p class="text-presentation">
+	This is where <b>Evolutionary Algorithms</b> come into play, algorithms that are bio-inspired in the Evolutionary Theory. These are techniques based on populations, in their most basic implementation we would start with a population of individuals, where each one represents a possible solution, which is improved over successive generations. This population is subject to events of <b>variation</b> and <b>selection</b> that guide the evolutionary process in a <b>stochastic</b> way, that is, NOT deterministic. This implies that we will always have a random component that helps us to avoid local minimums (if we consider a maximization problem) by increasing the exploratory capacity of the algorithm along the immense space of possible solutions. The scheme of a basic implementation would be as shown on the right.
+</p>
+
+
+<p class="text-presentation">
+
+	(<i>This is a basic model, there are some variants that are much more complex such as the NSGAII or SPEA2, two types of multi-objective genetic algorithms</i>)
+</p>
+
+<p class="text-presentation">
+	As I don't feel like going on too long explaining theory and I would like to go a bit more into the practical part I leave here a good introductory reference to this topic (<%= link_to 'Introduction to Evolutionary Computing', 'https://link.springer.com/book/10.1007/978-3-662-44874-8', target: "_blank"%>). However, the basic idea of this type of algorithm is, I think, quite clear.
+
+	<br><br>
+	Now let's get on with the framework!
+</p>
+<br><br>
+<h2>PyWinEA framework</h2>
+
+<p class="text-presentation">
+This framework can be installed directly via pip (<b>pip install pywinEA</b>) or you can directly access the code and example codes via my <%= link_to 'GitHub', 'https://github.com/FernandoGaGu/pywinEA', target: "_blank"%>.
+</p>
+
+<p class="text-presentation">
+	As mentioned above, individuals represent the possible solutions to a problem. There are several ways to code the solutions, for example by array of integers, permutations, real values, tree structures, array of binaries, etc. In this case the representation common to all the algorithms is variable length array of integers (although I am currently writing an improved version of the framework with support for binary, integer, permutation and real number representation... I will finish it someday in my free time).
+</p>
+
+
+<p class="text-presentation">
+	For example, if our problem consists of 10 variables, an individual may consist of an array with the variables in positions 2, 3 and 8; another individual may consist of the variables in positions 2, 1, 8 and 9, etc. <b>Each individual is essentially a combination of variables</b>. However, we need a way to evaluate how good each individual is, that is, each combination of variables. This is where compatibility with <b><%=link_to 'Scikit-Learn', 'https://scikit-learn.org', target: "_blank"%></b>, one of Python's best-known Machine Learning frameworks, comes into play. In this case, any model already implemented in this huge framework (framework funded by <%= link_to 'Microsoft', 'https://www.microsoft.com', target: "_blank"%>, <%= link_to 'Intel', 'https://www.intel.com', target: "_blank" %> or <%= link_to 'NVIDIA', 'https://www.nvidia.com', target: "_blank" %> among others...) can be used to evaluate the quality of each individual.
+</p>
+
+<p class="text-presentation">
+	This way running an algorithm is as simple as writing the following code:<br><br>
+</p>
+		<%= image_tag("project_1/basic_ga_code.jpg", :alt => "BasicGA code", :size => "800x550", align:"center", hspace:"20", vspace:"10", class:"profile-image") %>
+
+<p class="text-presentation">
+	<br><br>
+	As can be seen in the image, we only need to define the <b>population size</b>, the <b>number of generations</b>, the model used to evaluate the quality (<b>fitness function</b>) of each possible solution (in this case a Scikit-Learn Bayesian classifier), how we are going to evaluate this quality (in this case by cross validation with K = 5 (<i>parameter CV</i>)), the percentage of the population we will <b>annihilate</b> (that is, the percentage of the worst individuals we will eliminate from the population in each generation), the percentage of the individuals we will pass directly to the next generation (that is, the percentage of individuals with the best fitness to pass directly to the next generation (<i>defined by the <b>elitism</b> parameter</i>)), and the <b>mutation rate</b> which will introduce the random component to the algorithm (this random component gives the genetic algorithms the denomination of <b>meta-heuristics</b>, additionally we also introduce random components in the selection process, but I will not go into details).
+</p>
+<p class="text-presentation">
+	In the example we are addressing a problem of <b>supervised classification</b>. The genetic algorithm has tried to find the best possible approximation to an optimal solution reducing the number of features. So the evolution of the algorithm would be something like this:
+</p>
+		<%= image_tag("project_1/evolution_ga_1.jpg", :alt => "BasicGA code", :size => "530x300", align:"left", hspace:"20", vspace:"10", class:"profile-image") %>
+		<%= image_tag("project_1/evolution_ga_2.jpg", :alt => "BasicGA code", :size => "530x300", align:"right", hspace:"20", vspace:"10", class:"profile-image") %>
+
+<p class="text-presentation">
+But this framework also provides excellent tools for evaluating solutions with elegant graphic representations. In this way, we can, for example, compute a confusion matrix by cross-validation repetitions in a way that is as simple as that:
+</p>
+
+		<%= image_tag("project_1/cm.jpg", :alt => "BasicGA code", :size => "500x400", align:"center", hspace:"10", vspace:"10", class:"profile-image") %>
+		<%= image_tag("project_1/ga_evaluator.jpg", :alt => "BasicGA code", :size => "600x120", align:"right", hspace:"10", vspace:"80", class:"profile-image") %>
+
+<p class="text-presentation">
+Or even obtain representations of the model's ROC curves and many other metrics with only two lines of code...
+</p>
+
+		<%= image_tag("project_1/metrics.jpg", :alt => "BasicGA code", :size => "630x300", align:"center", hspace:"1", vspace:"10", class:"profile-image") %>
+		<%= image_tag("project_1/roc.jpg", :alt => "BasicGA code", :size => "500x300", align:"right", hspace:"1", vspace:"10", class:"profile-image") %>
+
+
+<p class="text-presentation">
+	The above result corresponds to a basic implementation of a mono-objective genetic algorithm where the population is subjected to the following processes during each generation:
+	<br><br>
+	<i>After randomly initializing the individuals in the population and evaluate their quality by assigning them a fitness value, the next steps are repeated for the number of generations defined by the user.</i>
+	<ol class="text-presentation">
+		<li>
+			Select a percentage of the best individuals as an <b>elite</b> (optional).
+		</li>
+		<br>
+		<li>
+			Eliminate the worst individuals from the population and replace them with elite or random individuals (optional).
+		</li>
+		<br>
+		<li>
+			Select the best individuals in the population for <b>recombination</b> and <b>offspring</b> generation.
+		</li>
+		<br>
+		<li>
+			Apply <b>mutation</b> to offspring.
+		</li>
+		<br>
+		<li>
+			Merge elite individuals  (if elitism has been used as a strategy) with offspring.
+		</li>	
+		<br>
+		<li>
+			Evaluate the quality of the offspring.
+		</li>							
+		<br>							
+		<li>
+			Select the offspring as the new population and return to <b>step 1</b>.
+		</li>
+	</ol>
+</p>
+<br>
+<p class="text-presentation">
+	So far so good, this is the basic implementation, however, things can get more complicated. In the example above we have tried to maximise a single objective, that is, we have used only one metric to evaluate the quality of the solutions. However, in many real-world situations we have not one but several objectives, and these are often conflicting objectives. This is where multi-objective genetic algorithms come into play. As the details of these algorithms are somewhat more complicated, I leave here the two references followed for the implementation of the NSGAII (<%= link_to 'reference', 'https://ieeexplore.ieee.org/document/996017', target: "_blank" %>) and SPEA2 (<%= link_to 'reference', 'https://www.researchgate.net/publication/216301720_SPEA2_Improving_the_Strength_Pareto_Evolutionary_Algorithm_for_Multiobjective_Optimization' , target: "_blank"%>).
+</p>
+<br><br>
+		<%= image_tag("project_1/NSGA2.gif", :alt => "BasicGA code", :size => "500x300", align:"right", hspace:"20", vspace:"20", class:"profile-image") %>
+<p class="text-presentation">
+	However, despite its complexity this framework makes it quite easy to use. For example, let us suppose that we want to maximise a certain metric used to evaluate the quality of a solution and minimise the number of characteristics of an individual (two contradictory objectives). In this case the use of the NSGAII is as simple as shown below.
+</p>
+
+<p class="text-presentation">
+In this case the Hypervolume Indicator has been used to represent the convergence of the algorithm.  Without any doubt this type of algorithm represents a more effective alternative than the basic model presented above capable of reaching better solutions for the vast majority of real life problems. 
+</p>
+<p class="text-presentation">
+Here again, the visualization tools allow us to explore the results achieved by the algorithm through the aforementioned Hypervolume Indicator, or by showing the non-dominated Pareto'a front of solutions.
+</p>
+		<%= image_tag("project_1/hypervolume.jpg", :alt => "BasicGA code", :size => "530x300", align:"left", hspace:"20", vspace:"10", class:"profile-image") %>
+		<%= image_tag("project_1/pareto.jpg", :alt => "BasicGA code", :size => "530x300", align:"right", hspace:"20", vspace:"10", class:"profile-image") %>
+
+
+<p class="text-presentation">
+By the way, did I mention that it is possible to run any number of algorithms in parallel and compare them? Indeed, the PyWinEA framework allows to run several algorithms in parallel comparing their performance easily. For example, we can compare the non-dominated front of solutions obtained by two algorithms, in this case SPEA2 and NSGAII, for the same problem:
+</p>
+
+		<%= image_tag("project_1/pareto_nsga_spea.jpg", :alt => "BasicGA code", :size => "700x500", align:"center", hspace:"20", vspace:"20", class:"profile-image") %>
+
+<br>
+<p class="text-presentation">
+	And that's it, for more examples and more detailed description of the framework I recommend you to go to my <%= link_to 'GitHub', 'https://github.com/FernandoGaGu/pywinEA', target: "_blank"%>. In the notebooks directory you can find many more examples. 
+</p>
+
+
+<p class="text-presentation">
+
+	Thank you for your time and I hope this mini project has been interesting for you and not too boring.
+</p>
+
+
+
+
+
+
+
+

@@ -4,7 +4,7 @@
 	<body>
 		<h1><strong>Projects</strong></h1>
 		<p>
-    In this page all projects will be listed existing the option to retrieve information of each of the projects.
+    Below you can find a list of some of the projects I have carried out. If you want more detailed information about the project I encourage you to click on the poster, this will take you to a new page with more comprehensive information about the project.
 		</p>		
 			<% @projects.each_with_index do |p, idx| %>
 				<% if idx % 2 == 0%>
@@ -17,7 +17,7 @@
 				
 				<h3 class="project-title", align=<%= title_align %>> <span style="color:black"><%= p.name[0...(p.name.length / 3).to_i] %></span><%= p.name[(p.name.length / 3).to_i..p.name.length] %> </h3>
 
-				<%= link_to image_tag("posters/project_1.jpg", :alt => "project_1", width:"50%", hspace:"30", vspace:"30", align:poster_align), project_path(p) %> 	
+				<%= link_to image_tag("posters/project_#{idx+1}.jpg", :alt => "project_1", width:"50%", hspace:"30", vspace:"10", align:poster_align), project_path(p) %> 	
 				<p class="text-presentation"> <%= p.description %></p>
 
 			<% end %>		
