@@ -1,0 +1,38 @@
+
+---
+ar_internal_metadata:
+  columns:
+  - key
+  - value
+  - created_at
+  - updated_at
+  records: 
+  - - environment
+    - development
+    - '2020-10-08 16:08:51.671701'
+    - '2020-10-08 16:08:51.671701'
+
+---
+projects:
+  columns:
+  - id
+  - name
+  - created_at
+  - updated_at
+  - description
+  records: 
+  - - 1
+    - PyWinEA
+    - '2020-10-08 16:26:30.095317'
+    - '2020-10-08 16:27:48.477445'
+    - |
+      The pywinEA package was developed as part of my final master's thesis in order to deal with a highly dimensional dataset, in other words, a dataset with a large number of characteristics.
+
+
+      It is a native Python implementation with some of the most used genetic algorithms such as NSGAII or SPEA2. This implementation was developed on the top of the popular Machine Learning framework Scikit-Learn. This allows to reuse any model already implemented in that framework with fully compatibility making it easy to use evolutionary techniques to effectively reduce the complexity of the dataset.
+
+
+      This package provides an easy way to use this kind of algorithms with such a level of abstraction that with just a few lines of code you can run complex algorithms and visualize their evolution through the graphical representation tools included in the framework.
+
+
+      For more information about why the use of genetic algorithms is so relevant in the context of Artificial Intelligence and to see some examples of what can be done with this framework click on the poster.

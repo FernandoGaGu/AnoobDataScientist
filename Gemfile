@@ -11,6 +11,8 @@ gem 'webpacker', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 # For stylesheet
 gem 'bootstrap-sass', '3.4.1'
+# Development database migration to production
+gem 'yaml_db'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
